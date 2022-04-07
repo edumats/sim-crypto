@@ -1,0 +1,47 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="{% block meta_description %}{% endblock %}">
+
+  <!-- Facebook meta tags -->
+  <meta property="og:title" content="Joyful.gifts: Joy, Everywhere!" />
+  <meta property="og:description" content="The world needs more joy, gifting made simple" />
+  <meta property="og:image" content="{% static 'images/facebook.png' %}" />
+
+  <!-- Twitter meta tags --><meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@Jonathan_adly_" />
+  <meta name="twitter:creator" content="@Jonathan_adly_" />
+  <meta name="twitter:title" content="Joyful.gifts: Joy, Everywhere!" />
+  <meta name="twitter:description" content="The world needs more joy, gifting made simple" />
+  <meta name="twitter:image" content="{% static 'images/twitter.png' %}" />
+  <!-- Search engine meta tags -->
+  <meta name="description"content="Joyful.gifts is an automated gifting platform that always finds the perfect gift, at the best price." />
+
+  
+  <meta name="description" content="A simple HTML5 Template for new projects.">
+  <meta name="author" content="SitePoint">
+
+  <meta property="og:title" content="A Basic HTML5 Template">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.sitepoint.com/a-basic-html5-template/">
+  <meta property="og:description" content="A simple HTML5 Template for new projects.">
+  <meta property="og:image" content="image.png">
+
+  <link rel="icon" href="/favicon.ico">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+  <link rel="stylesheet" href="css/styles.css?v=1.0">
+  <title>{% block title %}A Basic HTML5 Template{% endblock %}</title>
+</head>
+
+<body>
+  {% block content%}{% endblock %}
+</body>
+</html>

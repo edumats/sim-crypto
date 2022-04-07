@@ -1,0 +1,18 @@
+from django.test import TestCase, Client
+from django.urls import reverse
+
+
+class ViewTest(TestCase):
+    def setUp(self) -> None:
+        self.client = Client()
+
+    def test_index_view(self):
+        """ Test if index view returns HTTP 200 response """
+        url = reverse('index')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_api_view(self):
+        url = reverse('api_root')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)

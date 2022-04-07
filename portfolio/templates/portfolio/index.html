@@ -1,0 +1,14 @@
+{% extends "portfolio/base.html" %}
+{% block title %}Crypto Simulator{% endblock %}
+
+
+{% block content %}
+    {% if asset_list %}
+        {% for asset in asset_list %}
+            <p>{{asset.coin}}</p>
+            <p>{{asset.quantity}}</p>
+        {% endfor %}
+    {% else %}
+        No assets available.
+    {% endif %}
+{% endblock %}
