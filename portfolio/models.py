@@ -10,7 +10,7 @@ class Coin(models.Model):
     name = models.CharField(max_length=20, unique=True)
     symbol = models.CharField(max_length=5, unique=True)
     decimal_places = models.PositiveSmallIntegerField()
-    date_added = models.DateTimeField(auto_now_add=True)
+    date_created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self) -> str:
         return f'{self.name} - {self.symbol}'
@@ -21,7 +21,7 @@ class Coin(models.Model):
 
 class Asset(models.Model):
     coin = models.ForeignKey(
-        Coin,
+        'Coin',
         on_delete=models.CASCADE
     )
     quantity = models.DecimalField(
@@ -34,7 +34,11 @@ class Asset(models.Model):
         default_currency='USD',
         default=10000
     )
-    transaction_date = models.DateTimeField(
+    portfolio = models.ForeignKey(
+        'Portfolio',
+        on_delete=models.CASCADE
+    )
+    date_created = models.DateTimeField(
         auto_now_add=True
     )
 
@@ -66,7 +70,7 @@ class Asset(models.Model):
         return super().save(*args, **kwargs)
 
     class Meta:
-        ordering = ['transaction_date']
+        ordering = ['date_created']
 
 
 class Portfolio(models.Model):
@@ -75,10 +79,7 @@ class Portfolio(models.Model):
         on_delete=models.CASCADE,
         primary_key=True,
     )
-    assets = models.ManyToManyField(
-        Asset,
-        related_name='portfolio_assets'
-    )
+    date_created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self) -> str:
         return f'Owner: {self.user}'

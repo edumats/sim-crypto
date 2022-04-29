@@ -77,5 +77,6 @@ class AssetTests(TestCase):
         self.assertEqual(portfolio.assets.all().count(), 2)
 
     def test_str_portfolio(self):
+        """ Test string represenation of Portfolio model """
         portfolio = Portfolio(user=self.user)
         self.assertEqual(str(portfolio), f'Owner: {self.username}')

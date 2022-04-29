@@ -1,3 +1,5 @@
 from django.shortcuts import render
+from django.http import HttpResponseRedirect
+from allauth.account.views import SignupView
 
-# Create your views here.
+from portfolio.models import Coin, Asset, Portfolio

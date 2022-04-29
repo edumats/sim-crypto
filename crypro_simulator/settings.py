@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'djmoney',
     # Local apps
-    'accounts',
+    'accounts.apps.AccountsConfig',
     'portfolio',
 ]
 
@@ -125,7 +125,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -159,6 +159,8 @@ ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
 ACCOUNT_SESSION_REMEMBER = True
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_UNIQUE_EMAIL = True
+# Does not redirect when accessing login/signup pages
+ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = False
 # Route name which is redirected after login
 LOGIN_REDIRECT_URL = 'index'
 # Route name which is redirected after logout

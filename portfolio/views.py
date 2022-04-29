@@ -1,3 +1,4 @@
+from typing import Any, Dict
 from django.views.generic import ListView
 
 # For DRF
@@ -18,10 +19,27 @@ from portfolio.serializers import (
 
 
 class IndexView(ListView):
-    model = Asset
-    context_object_name = 'asset_list'
+    model = Portfolio
     template_name = 'portfolio/index.html'
 
+    def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        if self.request.user.is_authenticated:
+            try:
+                # Get user's portfolio
+                context['asset_list'] = Asset.objects.filter(
+                    portfolio__user=self.request.user
+                )
+                return context
+            # If user does not have a portfolio, return default context
+            except self.model.DoesNotExist:
+                return context
+        # If not authenticated, just return default context
+        return context
+
+
+class BuyView():
+    pass
 
 @api_view(['GET'])
 def api_root(request, format=None):
