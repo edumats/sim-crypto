@@ -1,5 +1,6 @@
 from typing import Any, Dict
-from django.views.generic import ListView
+from django.views.generic import ListView, FormView
+from django.views.generic.edit import CreateView
 
 # For DRF
 from rest_framework.decorators import api_view
@@ -38,8 +39,11 @@ class IndexView(ListView):
         return context
 
 
-class BuyView():
-    pass
+class AssetCreateView(CreateView):
+    model = Asset
+    template_name_suffix = '_create_form'
+    fields = ['coin', 'quantity']
+
 
 @api_view(['GET'])
 def api_root(request, format=None):

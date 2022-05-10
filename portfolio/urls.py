@@ -1,11 +1,12 @@
 from django.urls import path, include
 from rest_framework.urlpatterns import format_suffix_patterns
-from portfolio import views
 
+from portfolio import views
 
 urlpatterns = [
     path('', views.api_root, name='api_root'),
     path('index/', views.IndexView.as_view(), name='index'),
+    path('buy/', views.AssetCreateView.as_view(), name='buy'),
     path('coins/',
          views.CoinList.as_view(),
          name='coin-list'),

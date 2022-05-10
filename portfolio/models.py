@@ -2,6 +2,7 @@ import decimal
 from django.db import models
 from django.conf import settings
 from django.core.exceptions import ValidationError
+from django.urls import reverse
 
 from djmoney.models.fields import MoneyField
 
@@ -60,6 +61,9 @@ class Asset(models.Model):
                  "and is more than currency's minimum unit value "
                  f"which is {self.coin.decimal_places} places")
             )
+
+    def get_absolute_url(self):
+        return reverse('asset-detail', kwargs={'pk': self.pk})
 
     def save(self, *args, **kwargs):
         """ In order to run clean method """
