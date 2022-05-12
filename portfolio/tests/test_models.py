@@ -20,21 +20,10 @@ class AssetTests(TestCase):
         self.user = CustomUser.objects.create(
             username=self.username
         )
+        # Gets Portfolio instance created by signals after user creation
         self.portfolio = Portfolio.objects.get(
                 user=self.user
             )
-        self.asset1 = Asset.objects.create(
-            coin=self.coin,
-            quantity=1,
-            price=1,
-            portfolio=self.portfolio
-        )
-        self.asset2 = Asset.objects.create(
-            coin=self.coin,
-            quantity=2,
-            price=2,
-            portfolio=self.portfolio
-        )
 
     def test_min_decimal_places(self):
         """ Test if error is raised if invalid decimal places are used """
@@ -78,6 +67,44 @@ class AssetTests(TestCase):
             f'{self.coin} - quantity: {test_quantity}'
         )
 
-    def test_str_portfolio(self):
-        """ Test string represenation of Portfolio model """
-        self.assertEqual(str(self.portfolio), f'Owner: {self.username}')
+
+class PortfolioTests(TestCase):
+    def setUp(self):
+        self.user = CustomUser.objects.create(
+            username='TestUser'
+        )
+    
+    def test_portfolio_creation_by_customuser(self):
+        """ Test if a Portfolio instance is created when User is instantiated """
+        portfolio = Portfolio.objects.get(user=self.user)
+        self.assertIsInstance(portfolio, Portfolio)
+    
+    def test_portfolio_str(self):
+        """ Test string representation of Portfolio model """
+        portfolio = Portfolio.objects.get(user=self.user)
+        self.assertEqual(str(portfolio), f'Owner: {portfolio.user.username}')
+
+
+class CoinTests(TestCase):
+    def setUp(self):
+        self.user = CustomUser.objects.create(
+            username='TestUser'
+        )
+    
+    def test_coin_creation_by_customuser(self):
+        """ Test if a Coin instance is created when User is instantiated """
+        coin = Coin.objects.get(
+            name='US Dollar',
+            symbol='USD',
+            decimal_places=2
+        )
+        self.assertIsInstance(coin, Coin)
+    
+    def test_coin_str(self):
+        """ Test string representation of Portfolio model """
+        coin = Coin.objects.get(
+            name='US Dollar',
+            symbol='USD',
+            decimal_places=2
+        )
+        self.assertEqual(str(coin), 'US Dollar - USD')
