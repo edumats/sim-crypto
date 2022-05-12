@@ -20,15 +20,20 @@ class AssetTests(TestCase):
         self.user = CustomUser.objects.create(
             username=self.username
         )
+        self.portfolio = Portfolio.objects.get(
+                user=self.user
+            )
         self.asset1 = Asset.objects.create(
             coin=self.coin,
             quantity=1,
-            price=1
+            price=1,
+            portfolio=self.portfolio
         )
         self.asset2 = Asset.objects.create(
             coin=self.coin,
             quantity=2,
-            price=2
+            price=2,
+            portfolio=self.portfolio
         )
 
     def test_min_decimal_places(self):
@@ -36,17 +41,21 @@ class AssetTests(TestCase):
         with self.assertRaises(ValidationError):
             # Represents one more decimal place than coin's min unit value
             invalid_qty = '0.001'
+            
             Asset.objects.create(
                 coin=self.coin,
                 quantity=invalid_qty,
-                price=1
+                price=1,
+                portfolio=self.portfolio
             )
 
     def test_creation_with_float(self):
         """ Test if error is not raised if float is used as input """
         asset = Asset.objects.create(
             coin=self.coin,
-            quantity=0.01
+            quantity=0.01,
+            price=1,
+            portfolio=self.portfolio
         )
         self.assertIsInstance(asset, Asset)
         self.assertIsInstance(asset.quantity, Decimal)
@@ -61,22 +70,14 @@ class AssetTests(TestCase):
         asset = Asset.objects.create(
             coin=self.coin,
             quantity=test_quantity,
-            price=22.01
+            price=22.01,
+            portfolio=self.portfolio
         )
         self.assertEqual(
             str(asset),
             f'{self.coin} - quantity: {test_quantity}'
         )
 
-    def test_portfolio_creation(self):
-        """ Test if Portfolio object is successfully created """
-        portfolio = Portfolio(user=self.user)
-        portfolio.save()
-        self.assertIsInstance(portfolio, Portfolio)
-        portfolio.assets.add(self.asset1, self.asset2)
-        self.assertEqual(portfolio.assets.all().count(), 2)
-
     def test_str_portfolio(self):
         """ Test string represenation of Portfolio model """
-        portfolio = Portfolio(user=self.user)
-        self.assertEqual(str(portfolio), f'Owner: {self.username}')
+        self.assertEqual(str(self.portfolio), f'Owner: {self.username}')
