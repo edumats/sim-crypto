@@ -51,21 +51,25 @@
 </head>
 
 <body>
-  <div class="d-flex flex-column flex-md-row h-100 w-100">
-    <!-- Navbar -->
-    {% include "portfolio/base_navbar.html" %}
-    <!-- End of Navbar-->
-    <!-- Sidebar -->
-    {% include "portfolio/base_sidebar.html" %}
-    <!-- End of Sidebar-->
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-4 bg-success">
+        <!-- Navbar -->
+        {% include "portfolio/base_navbar.html" %}
+        <!-- End of Navbar-->
+        <!-- Sidebar -->
+        {% include "portfolio/base_sidebar.html" %}
+        <!-- End of Sidebar-->
+      </div>
+      <!-- Content -->
+      <div class="col-md-8 bg-danger overflow-auto">
+        {% block content %}
+        {% endblock %}
+      </div>
+      <!-- End of Content-->
+    </div>
+  </div>
   
-    <!-- Content -->
-    
-    <!-- End of Content-->
-  </div>
-  <div class="bg-danger w-100 h-100 overflow-auto">
-    {% block content %}
-    {% endblock %}
-  </div>
+  
 </body>
 </html>
