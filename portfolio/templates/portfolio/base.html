@@ -51,21 +51,26 @@
 </head>
 
 <body>
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-4 bg-success">
-        <!-- Navbar -->
-        {% include "portfolio/base_navbar.html" %}
-        <!-- End of Navbar-->
+  <!-- Navbar -->
+  {% include "portfolio/base_navbar.html" %}
+  <!-- End of Navbar-->
+
+  <div class="container-fluid px-0 h-100">
+    <div class="row h-100">
+      <div class="col-md-3 bg-success px-0 d-none d-md-block">
+        
         <!-- Sidebar -->
         {% include "portfolio/base_sidebar.html" %}
         <!-- End of Sidebar-->
+
       </div>
       <!-- Content -->
-      <div class="col-md-8 bg-danger overflow-auto">
+
+      <div class="col-md-9 bg-danger overflow-auto px-0">
         {% block content %}
         {% endblock %}
       </div>
+
       <!-- End of Content-->
     </div>
   </div>
