@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'rest_framework',
     'djmoney',
+    'crispy_forms',
     # Local apps
     'accounts.apps.AccountsConfig',
     'portfolio',
@@ -165,3 +166,6 @@ ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = False
 LOGIN_REDIRECT_URL = 'index'
 # Route name which is redirected after logout
 ACCOUNT_LOGOUT_REDIRECT_URL = 'index'
+
+# Crispy forms configuration
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
