@@ -1,11 +1,12 @@
 {% extends "portfolio/base.html" %}
+{% load crispy_forms_tags %}
 
 {% block title %}Buy Coins{% endblock %}
 
 {% block content%}
     <form method="post" action="{% url 'buy' %}">
         {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Buy">       
+        {{ form|crispy }}
+        <input type="submit" class="btn btn-primary mt-3" value="Buy">       
     </form>
 {% endblock %}
