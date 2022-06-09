@@ -2,6 +2,7 @@ import os
 
 from celery import Celery
 from celery.schedules import crontab
+from portfolio.tasks import get_coinbase
 
 # Sets the path for django settings module for the Celery app to use it
 # This allows for Django settings file to be used to configure Celery
@@ -23,10 +24,10 @@ app.autodiscover_tasks()
 def debug_task(self):
     print(f'Request: {repr(self.request)}')
 
+
 @app.on_after_configure.connect
 def setup_periodic_tasks(sender, **kwargs):
-    sender.add_periodic_task(10.0, test.s('hello'), name='hello every 10s')
-
-@app.task
-def test(arg):
-    print(arg)
+    sender.add_periodic_task(
+        crontab(minute='*'),
+        get_coinbase(), name='get API data every minute'
+    )
